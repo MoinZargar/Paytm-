@@ -4,11 +4,13 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { SignupSchema } from '@repo/validation/schemas';
 import { SignupInput } from '@repo/validation/types';
-
+import axios from 'axios';
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from 'next/link';
 
 export default function SignupPage() {
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<boolean>(false);
   
   const {
     register,
@@ -19,11 +21,14 @@ export default function SignupPage() {
   });
 
   const onSubmit = async (data: SignupInput) => {
+    setError(null);
+    setSuccess(false);
     try {
-      // Handle signup logic here
-      console.log(data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      const response = await axios.post('/api/auth/signup', data);
+      console.log(response.data);
+      setSuccess(true);
+    } catch (err: any) {
+      setError(err?.response?.data?.error || 'Internal server error');
     }
   };
 
@@ -38,9 +43,21 @@ export default function SignupPage() {
           </div>
         )}
 
+        {success && (
+          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg shadow-sm space-y-2">
+            <p>Account created successfully!</p>
+            <p>
+              Sign in to continue. {' '}
+              <Link href="/signin" className="text-green-800 underline hover:text-green-900">
+                Click here
+              </Link>
+            </p>
+          </div>
+        )}
+
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="email" className="block text-base font-medium text-gray-700">
               Email
             </label>
             <input
@@ -55,7 +72,7 @@ export default function SignupPage() {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="password" className="block text-base font-medium text-gray-700">
               Password
             </label>
             <input
@@ -75,9 +92,15 @@ export default function SignupPage() {
           >
             Sign Up
           </button>
+
+          <p className="text-center text-md text-gray-600">
+            Already have an account?{' '}
+            <Link href="/signin" className="text-blue-600 hover:text-blue-700 font-medium">
+              Sign in
+            </Link>
+          </p>
         </form>
       </div>
     </div>
   );
 }
-
