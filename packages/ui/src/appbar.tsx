@@ -1,19 +1,20 @@
+import React from "react";
 import { Button } from "./button.tsx"
 
 interface AppbarProps {
     user?: {
         name?: string | null;
     },
-    // TODO: can u figure out what the type should be here?
-    onSignin: any,
-    onSignout: any
+   
+    onSignin: () => Promise<void>,
+    onSignout: () => Promise<void>
 }
 
-export const Appbar = ({
+export function Appbar ({
     user,
     onSignin,
     onSignout
-}: AppbarProps) => {
+}: AppbarProps){
     return <div className="flex justify-between border-b px-4">
         <div className="text-lg flex flex-col justify-center">
             PayTM
