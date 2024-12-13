@@ -37,7 +37,8 @@ export const authOptions = {
                  if (passwordValidation) {
                      return {
                          id: existingUser.id.toString(),
-                         email: existingUser.email
+                         email: existingUser.email,
+                         name: existingUser.name
                      }
                  }
                  return null;

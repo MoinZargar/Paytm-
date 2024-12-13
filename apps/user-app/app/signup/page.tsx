@@ -11,7 +11,7 @@ import Link from 'next/link';
 export default function SignupPage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
-  
+
   const {
     register,
     handleSubmit,
@@ -36,7 +36,7 @@ export default function SignupPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-2xl border border-gray-100">
         <h2 className="text-center text-3xl font-extrabold text-gray-900">Sign Up</h2>
-        
+
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg shadow-sm">
             {error}
@@ -56,6 +56,21 @@ export default function SignupPage() {
         )}
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <div>
+            <label htmlFor="name" className="block text-base font-medium text-gray-700">
+              Name
+            </label>
+            <input
+              id="name"
+              type="text"
+              {...register('name')}
+              className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2.5 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+            />
+            {errors.name && (
+              <p className="mt-2 text-sm text-red-600">{errors.name.message}</p>
+            )}
+          </div>
+
           <div>
             <label htmlFor="email" className="block text-base font-medium text-gray-700">
               Email

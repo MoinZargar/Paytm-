@@ -2,10 +2,11 @@ import { NextResponse } from 'next/server';
 import { SignupSchema } from '@repo/validation/schemas';
 import db from '@repo/db/client';
 import bcrypt from 'bcrypt';
+import { SignupInput } from '@repo/validation/types';
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const body:SignupInput = await request.json();
     
     // Validate input
     const result = SignupSchema.safeParse(body);
@@ -16,7 +17,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const { email, password } = result.data;
+    const {name, email, password } = result.data;
 
     // Check if user already exists
     const existingUser = await db.user.findUnique({
@@ -36,14 +37,16 @@ export async function POST(request: Request) {
     // Create user
     const user = await db.user.create({
       data: {
+        name,
         email,
         password: hashedPassword
       }
     });
 
-    // Create a copy of the user object without the password field for security
+    
     const userResponse = {
       id: user.id,
+      name: user.name,
       email: user.email,
     };
     
