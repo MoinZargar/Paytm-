@@ -1,7 +1,6 @@
 "use client"
 import { Button } from "@repo/ui/button";
 import { Card } from "@repo/ui/card";
-import { Center } from "@repo/ui/center";
 import { Select } from "@repo/ui/select";
 import { Input } from "@repo/ui/input";
 import { useForm, Controller } from "react-hook-form";
@@ -10,14 +9,16 @@ import { SupportedBanks } from "@repo/validation/constants";
 import { AddMoneySchema } from "@repo/validation/schemas";
 import { AddMoneyType } from "@repo/validation/types";
 import { createOnRampTransaction } from "../lib/actions/createOnrampTransaction";
+import { useRouter } from "next/router";
+
 
 
 export const AddMoney = () => {
-   
-    const { 
-        control, 
-        handleSubmit, 
-        formState: { errors, isSubmitting } 
+    // const router = useRouter();
+    const {
+        control,
+        handleSubmit,
+        formState: { errors, isSubmitting }
     } = useForm<AddMoneyType>({
         resolver: zodResolver(AddMoneySchema),
         defaultValues: {
@@ -28,12 +29,18 @@ export const AddMoney = () => {
 
     const onSubmit = async (data: AddMoneyType) => {
         try {
-            
             const selectedBank = SupportedBanks.find(x => x.name === data.bankName);
-            await createOnRampTransaction(data.bankName, data.amount);
-            if (selectedBank?.redirectUrl) {
-                window.location.href = selectedBank.redirectUrl;
+            if (!selectedBank) {
+                console.error('Bank not found');
+                return;
             }
+            const response = await createOnRampTransaction(selectedBank, data.amount);
+           
+            // if (selectedBank?.redirectUrl) {
+            //     window.location.href = selectedBank.redirectUrl;
+            // }
+            const redirectUrl = `${selectedBank.redirectUrl}?token=${response.token}&amount=${data.amount}`;
+            window.location.href = redirectUrl;
         } catch (error) {
             console.error('Something went wrong:', error);
         }
@@ -51,19 +58,19 @@ export const AddMoney = () => {
                             type="number"
                             placeholder="Enter amount"
                             onChange={field.onChange}
-                            
+
                         />
                     )}
                 />
                 {errors?.amount && (
-                   
-                        <div className="text-red-500 text-sm">
-                            {errors.amount.message}
-                        </div>
-                    
+
+                    <div className="text-red-500 text-sm">
+                        {errors.amount.message}
+                    </div>
+
                 )}
                 <div className="py-4 text-left">Bank</div>
-                
+
                 <Controller
                     name="bankName"
                     control={control}
@@ -78,15 +85,15 @@ export const AddMoney = () => {
                     )}
                 />
                 {errors?.bankName && (
-                   
-                        <div className="text-red-500 text-sm">
-                            {errors.bankName.message}
-                        </div>
-                   
+
+                    <div className="text-red-500 text-sm">
+                        {errors.bankName.message}
+                    </div>
+
                 )}
                 <div className="flex justify-center pt-4">
-                    <Button 
-                        type="submit" 
+                    <Button
+                        type="submit"
                         disabled={isSubmitting}
                     >
                         {isSubmitting ? 'Processing' : 'Add Money'}

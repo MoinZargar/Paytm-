@@ -3,17 +3,31 @@
 import prisma from "@repo/db/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth";
+import axios from "axios";
+import db from "@repo/db/client";
+import { NextResponse } from "next/server";
 
-export async function createOnRampTransaction(provider: string, amount: number) {
-    // Ideally the token should come from the banking provider (hdfc/axis)
-    const session = await getServerSession(authOptions);
-    if (!session?.user || !session.user?.id) {
-        return {
-            message: "Unauthenticated request"
-        }
-    }
-    const token = (Math.random() * 1000).toString();
+export async function createOnRampTransaction(selectedBank: {
+    name: string;
+    redirectUrl: string;
+} ,
+    amount: number) {
+
+    
     try {
+        const session = await getServerSession(authOptions);
+        if (!session) {
+            return {
+                message: "You need to be logged in to perform this action"
+            }
+        }
+        const provider = selectedBank?.name;
+        const response = await axios.post(`${selectedBank?.redirectUrl}/api/token`, {
+            amount,
+            userId: session?.user?.id
+        });
+       
+        const token = response.data.token;
         await prisma.onRampTransaction.create({
             data: {
                 provider,
@@ -25,11 +39,11 @@ export async function createOnRampTransaction(provider: string, amount: number) 
             }
         });
         return {
-            message: "Done"
-        }
-    } catch (error) {
-        return {
-            message: `Error: ${error}`
-        }
+            token: token,
+            status: 201
+        };
+    } catch (error:any) {
+    
+       throw new Error(error);
     }
 }

@@ -43,11 +43,19 @@ export async function POST(request: Request) {
       }
     });
 
-    
+    const balance = await db.balance.create({
+      data: {
+        userId: user.id,
+        amount: 0,
+        locked: 0
+      }
+    });
+
     const userResponse = {
       id: user.id,
       name: user.name,
       email: user.email,
+      balance: balance.amount
     };
     
     // Return the safe user data with a 201 (Created) status code
