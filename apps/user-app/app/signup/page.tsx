@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { SignupSchema } from '@repo/validation/schemas';
-import { SignupInput } from '@repo/validation/types';
+import { SignupType } from '@repo/validation/types';
 import axios from 'axios';
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from 'next/link';
@@ -16,11 +16,11 @@ export default function SignupPage() {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<SignupInput>({
+  } = useForm<SignupType>({
     resolver: zodResolver(SignupSchema)
   });
 
-  const onSubmit = async (data: SignupInput) => {
+  const onSubmit = async (data: SignupType) => {
     setError(null);
     setSuccess(false);
     try {

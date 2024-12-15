@@ -2,11 +2,11 @@ import { NextResponse } from 'next/server';
 import { SignupSchema } from '@repo/validation/schemas';
 import db from '@repo/db/client';
 import bcrypt from 'bcrypt';
-import { SignupInput } from '@repo/validation/types';
+import { SignupType } from '@repo/validation/types';
 
 export async function POST(request: Request) {
   try {
-    const body:SignupInput = await request.json();
+    const body:SignupType = await request.json();
     
     // Validate input
     const result = SignupSchema.safeParse(body);

@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { SigninSchema } from '@repo/validation/schemas';
-import { SigninInput } from '@repo/validation/types';
+import { SigninType } from '@repo/validation/types';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -16,11 +16,11 @@ export default function SigninPage() {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<SigninInput>({
+  } = useForm<SigninType>({
     resolver: zodResolver(SigninSchema)
   });
 
-  const onSubmit = async (data: SigninInput) => {
+  const onSubmit = async (data: SigninType) => {
     setError(null);
     try {
       const response = await signIn('credentials', {

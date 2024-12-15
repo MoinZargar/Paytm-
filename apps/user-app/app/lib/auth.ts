@@ -1,7 +1,7 @@
 import db from "@repo/db/client";
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcrypt";
-import { SigninInput } from "@repo/validation/types";
+import { SigninType } from "@repo/validation/types";
 import { SigninSchema } from "@repo/validation/schemas";
 import { pages } from "next/dist/build/templates/app-page";
 
@@ -15,7 +15,7 @@ export const authOptions = {
             password: { label: "Password", type: "password" }
           },
         
-          async authorize(credentials: SigninInput | undefined) {
+          async authorize(credentials: SigninType | undefined) {
            try {
              if(!credentials) {
                  return null;

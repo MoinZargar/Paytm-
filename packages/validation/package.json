@@ -15,6 +15,7 @@
   },
   "exports": {
     "./schemas": "./src/schemas.ts",
-    "./types": "./src/types.ts"
+    "./types": "./src/types.ts",
+    "./constants": "./src/lib/constants.ts"
   }
 }
