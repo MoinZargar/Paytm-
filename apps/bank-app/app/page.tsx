@@ -20,7 +20,7 @@ export default function TransactionPage() {
   });
 
   const onSubmit = async(data: BankTransactionType) => {
-    console.log(data);
+  
     try {
       
       if(!token || !amount) {  
@@ -28,9 +28,10 @@ export default function TransactionPage() {
        
       }
       await processPayment(data, token, Number(amount));
-      router.push(`/success?amount=${amount}`);
+      router.push(`/result?success=${true}&amount=${amount}`);
     } catch (error) {
       console.error('Something went wrong:', error);
+      router.push(`/result?success=${false}&amount=${amount}`);
     }
     
   };
@@ -75,7 +76,7 @@ export default function TransactionPage() {
           </div>
           {amount &&
             <div className="bg-gray-100 p-4 rounded-md">
-              <p className="text-lg font-semibold">Amount to be debited: ${amount}</p>
+              <p className="text-lg font-semibold">Amount to be debited: Rs {amount}</p>
             </div>
           }
           <button

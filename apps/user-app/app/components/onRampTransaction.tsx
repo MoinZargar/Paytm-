@@ -1,8 +1,6 @@
 import { Card } from "@repo/ui/card"
 import { OnRampStatus } from "@prisma/client"
 
-
-
 export const OnRampTransactions = ({
     transactions
 }: {
@@ -22,19 +20,16 @@ export const OnRampTransactions = ({
     }
     return <Card title="Recent Transactions">
         <div className="pt-2">
-            {transactions.map(t => <div key={t.time.toString()} className="flex justify-between">
-                <div>
-                    <div className="text-sm">
-                        Received INR
-                    </div>
-                    <div className="text-slate-600 text-xs">
-                        {t.time.toDateString()}
-                    </div>
+            {transactions.map(t => <div key={t.time.toString()} className="flex justify-between items-center">
+                <div className="text-sm">
+                    {t.time.toLocaleString()}
                 </div>
-                <div className="flex flex-col justify-center">
-                    + Rs {t.amount / 100}
+                <div className="text-lg font-bold text-right">
+                    <span className="align-middle">+</span><span className="align-middle">Rs</span> <span className="align-middle">{(t.amount / 100).toLocaleString()}</span>
                 </div>
-
+                <div className={`text-lg ${t.status === OnRampStatus.Success ? 'text-green-500' : t.status === OnRampStatus.Processing ? 'text-blue-500' : 'text-red-500'}`}>
+                    {t.status}
+                </div>
             </div>)}
         </div>
     </Card>

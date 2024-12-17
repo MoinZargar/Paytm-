@@ -10,11 +10,10 @@ import { AddMoneySchema } from "@repo/validation/schemas";
 import { AddMoneyType } from "@repo/validation/types";
 import { createOnRampTransaction } from "../lib/actions/createOnrampTransaction";
 import { useRouter } from "next/router";
-
-
+import { useState } from 'react';
 
 export const AddMoney = () => {
-    // const router = useRouter();
+    const [error, setError] = useState<string | null>(null);
     const {
         control,
         handleSubmit,
@@ -31,18 +30,15 @@ export const AddMoney = () => {
         try {
             const selectedBank = SupportedBanks.find(x => x.name === data.bankName);
             if (!selectedBank) {
-                console.error('Bank not found');
+                setError('Bank not found');
                 return;
             }
             const response = await createOnRampTransaction(selectedBank, data.amount);
-           
-            // if (selectedBank?.redirectUrl) {
-            //     window.location.href = selectedBank.redirectUrl;
-            // }
+         
             const redirectUrl = `${selectedBank.redirectUrl}?token=${response.token}&amount=${data.amount}`;
             window.location.href = redirectUrl;
-        } catch (error) {
-            console.error('Something went wrong:', error);
+        } catch (error: any) {
+            setError('Something went wrong: ' + error.message);
         }
     };
 
@@ -90,6 +86,11 @@ export const AddMoney = () => {
                         {errors.bankName.message}
                     </div>
 
+                )}
+                {error && (
+                    <div className="text-red-500 text-sm">
+                        {error}
+                    </div>
                 )}
                 <div className="flex justify-center pt-4">
                     <Button
