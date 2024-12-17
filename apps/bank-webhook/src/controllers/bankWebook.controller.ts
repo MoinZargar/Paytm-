@@ -11,7 +11,7 @@ const bankWebhook = async (req :Request , res :Response) => {
         amount: req.body.amount,
         secret: req.body.secret
     };
-    console.log(paymentInformation);
+    
     try {
 
         if(paymentInformation.secret !== process.env.BANK_SECRET_KEY) {

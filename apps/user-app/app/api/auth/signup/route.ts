@@ -17,11 +17,11 @@ export async function POST(request: Request) {
       );
     }
 
-    const {name, email, password } = result.data;
+    const {name, mobileNumber, password } = result.data;
 
     // Check if user already exists
     const existingUser = await db.user.findUnique({
-      where: { email }
+      where: { mobileNumber }
     });
 
     if (existingUser) {
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     const user = await db.user.create({
       data: {
         name,
-        email,
+        mobileNumber,
         password: hashedPassword
       }
     });
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
     const userResponse = {
       id: user.id,
       name: user.name,
-      email: user.email,
+      mobileNumber: user.mobileNumber,
       balance: balance.amount
     };
     

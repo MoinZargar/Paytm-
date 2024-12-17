@@ -1,7 +1,7 @@
 import prisma from "@repo/db/client";
-import { AddMoney } from "../../components/AddMoneyCard";
-import { BalanceCard } from "../../components/BalanceCard";
-import { OnRampTransactions } from "../../components/onRampTransaction";
+import { AddMoney } from "../../../components/AddMoneyCard";
+import { BalanceCard } from "../../../components/BalanceCard";
+import { OnRampTransactions } from "../../../components/onRampTransaction";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../lib/auth";
 

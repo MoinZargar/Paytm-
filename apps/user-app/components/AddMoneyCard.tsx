@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SupportedBanks } from "@repo/validation/constants";
 import { AddMoneySchema } from "@repo/validation/schemas";
 import { AddMoneyType } from "@repo/validation/types";
-import { createOnRampTransaction } from "../lib/actions/createOnrampTransaction";
+import { createOnRampTransaction } from "../app/lib/actions/createOnrampTransaction";
 import { useRouter } from "next/router";
 import { useState } from 'react';
 

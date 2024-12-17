@@ -3,24 +3,24 @@ import { SupportedBanks } from "./lib/constants";
 
 export const SignupSchema = z.object({
   name: z.string()
-    .min(4, "Name must be at least 4 characters")  
+    .min(4, "Name must be at least 4 characters")
     .max(30, "Name must be at most 30 characters"),
-  email: z.string()
-    .email("Invalid email address")
-    .min(1, "Email is required"),
+  mobileNumber: z.string()
+    .regex(/^\d{10}$/, "Mobile number must be 10 digits")
+    .min(1, "Mobile number is required"),
   password: z.string()
     .min(5, "Password must be at least 5 characters")
     .max(20, "Password must be at most 20 characters")
 });
 
 export const SigninSchema = z.object({
-  email: z.string()
-    .email("Invalid email address")
-    .min(1, "Email is required"),
+  mobileNumber: z.string()
+    .regex(/^\d{10}$/, "Number must be 10 digits")
+    .min(1, "Number is required"),
   password: z.string()
     .min(5, "Password must be at least 5 characters")
     .max(20, "Password must be at most 20 characters")
-}); 
+});
 
 export const AddMoneySchema = z.object({
   amount: z

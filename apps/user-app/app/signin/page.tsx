@@ -24,13 +24,13 @@ export default function SigninPage() {
     setError(null);
     try {
       const response = await signIn('credentials', {
-        email: data.email,
+        mobileNumber: data.mobileNumber,
         password: data.password,
         redirect: false
       });
 
       if (response?.error) {
-        setError('Invalid email or password');
+        setError('Invalid mobile number or password');
         return;
       }
 
@@ -53,17 +53,17 @@ export default function SigninPage() {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div>
-            <label htmlFor="email" className="block text-base font-medium text-gray-700">
-              Email
+            <label htmlFor="mobileNumber" className="block text-base font-medium text-gray-700">
+              Mobile Number
             </label>
             <input
-              id="email"
-              type="email"
-              {...register('email')}
+              id="mobileNumber"
+              type="text"
+              {...register('mobileNumber')}
               className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2.5 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
             />
-            {errors.email && (
-              <p className="mt-2 text-sm text-red-600">{errors.email.message}</p>
+            {errors.mobileNumber && (
+              <p className="mt-2 text-sm text-red-600">{errors.mobileNumber.message}</p>
             )}
           </div>
 

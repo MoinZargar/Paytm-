@@ -11,7 +11,7 @@ export const authOptions = {
       CredentialsProvider({
           name: 'Credentials',
           credentials: {
-            email: { label: "Email", type: "text" },
+            mobileNumber: { label: "Mobile Number", type: "text" },
             password: { label: "Password", type: "password" }
           },
         
@@ -28,7 +28,7 @@ export const authOptions = {
              
              const existingUser = await db.user.findFirst({
                  where: {
-                     email: credentials.email
+                     mobileNumber: credentials.mobileNumber
                  }
              });
  
@@ -36,9 +36,9 @@ export const authOptions = {
                  const passwordValidation = await bcrypt.compare(credentials.password, existingUser.password);
                  if (passwordValidation) {
                      return {
-                         id: existingUser.id.toString(),
-                         email: existingUser.email,
-                         name: existingUser.name
+                         id : existingUser.id.toString(),
+                         mobileNumber : existingUser.mobileNumber,
+                         name : existingUser.name
                      }
                  }
                  return null;
