@@ -9,7 +9,6 @@ import { SupportedBanks } from "@repo/validation/constants";
 import { AddMoneySchema } from "@repo/validation/schemas";
 import { AddMoneyType } from "@repo/validation/types";
 import { createOnRampTransaction } from "../app/lib/actions/createOnrampTransaction";
-import { useRouter } from "next/router";
 import { useState } from 'react';
 
 export const AddMoney = () => {
@@ -33,7 +32,9 @@ export const AddMoney = () => {
                 setError('Bank not found');
                 return;
             }
-            const response = await createOnRampTransaction(selectedBank, data.amount);
+            //store the amount in paisa in db 
+            const amount = Number(data.amount) * 100;
+            const response = await createOnRampTransaction(selectedBank, amount);
          
             const redirectUrl = `${selectedBank.redirectUrl}?token=${response.token}&amount=${data.amount}`;
             window.location.href = redirectUrl;

@@ -9,12 +9,12 @@ export function Card({
 }): JSX.Element {
   return (
     <div
-      className="border p-4"
+      className="border-2 border-gray-300 p-4 rounded-lg shadow-md"
     >
-      <h1 className="text-xl border-b pb-2">
+      <h1 className="text-lg border-b pb-2">
         {title}
       </h1>
-      <p>{children}</p>
+      <div>{children}</div>
     </div>
   );
 }

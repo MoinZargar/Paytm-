@@ -45,3 +45,13 @@ export const bankTransactionSchema = z.object({
   expiryDate: z.string().regex(/^(0[1-9]|1[0-2])\/\d{2}$/, 'Expiry date must be in MM/YY format'),
   cvv: z.string().regex(/^\d{3}$/, 'CVV must be 3 digits'),
 });
+
+export const SendMoneySchema = z.object({
+  mobileNumber: z.string()
+    .regex(/^\d{10}$/, "Number must be 10 digits")
+    .min(1, "Number is required"),
+  amount: z.number({
+    required_error: "Amount is required",
+    invalid_type_error: "Amount must be a number",
+  }).positive("Amount must be greater than 0"),
+});

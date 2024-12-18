@@ -1,16 +1,18 @@
-'use client'
+'use client';
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { bankTransactionSchema } from '@repo/validation/schemas';
 import { BankTransactionType } from '@repo/validation/types';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { processPayment } from './lib/actions/processPayment';
-import { useState } from 'react';
+import { Suspense } from 'react';
 
-export default function TransactionPage() {
-
+// Wrapper component to handle searchParams
+function TransactionPageContent() {
   const router = useRouter();
+
+  // Client-side searchParams hook usage
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
   const amount = searchParams.get('amount');
@@ -19,27 +21,24 @@ export default function TransactionPage() {
     resolver: zodResolver(bankTransactionSchema)
   });
 
-  const onSubmit = async(data: BankTransactionType) => {
-  
+  const onSubmit = async (data: BankTransactionType) => {
     try {
-      
-      if(!token || !amount) {  
+      if (!token || !amount) {
         throw new Error('Token not found or amount not found');
-       
       }
       await processPayment(data, token, Number(amount));
-      router.push(`/result?success=${true}&amount=${amount}`);
+      router.push(`/result?success=true&amount=${amount}`);
     } catch (error) {
       console.error('Something went wrong:', error);
-      router.push(`/result?success=${false}&amount=${amount}`);
+      router.push(`/result?success=false&amount=${amount}`);
     }
-    
   };
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h1 className="text-2xl font-bold mb-6 text-center">Bank Transaction</h1>
+
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <label htmlFor="cardNumber" className="block text-sm font-medium text-gray-700">Card Number</label>
@@ -88,5 +87,14 @@ export default function TransactionPage() {
         </form>
       </div>
     </div>
+  );
+}
+
+// Main component with Suspense boundary
+export default function TransactionPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <TransactionPageContent />
+    </Suspense>
   );
 }

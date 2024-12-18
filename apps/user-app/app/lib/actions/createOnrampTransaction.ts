@@ -4,8 +4,8 @@ import prisma from "@repo/db/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth";
 import axios from "axios";
-import db from "@repo/db/client";
-import { NextResponse } from "next/server";
+
+
 
 export async function createOnRampTransaction(selectedBank: {
     name: string;
@@ -35,7 +35,7 @@ export async function createOnRampTransaction(selectedBank: {
                 startTime: new Date(),
                 token: token,
                 userId: Number(session?.user?.id),
-                amount: amount * 100
+                amount: amount 
             }
         });
         return {

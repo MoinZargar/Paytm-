@@ -13,7 +13,7 @@ export default function ResultPage({ searchParams }: { searchParams: { success:s
         <Suspense fallback={<p>Loading...</p>}>
           <p className="text-lg mb-6">{searchParams.success ? `Your payment of ${amount} has been processed successfully.` : `Your payment of ${amount} has failed.`}</p>
         </Suspense>
-        <Link href={process.env.NEXT_PUBLIC_MERCHANT_URL + '/transfer'} className="text-indigo-600 hover:text-indigo-800">
+        <Link href={process.env.MERCHANT_URL + '/transfer'} className="text-indigo-600 hover:text-indigo-800">
           Continue to Transfer
         </Link>
       </div>
