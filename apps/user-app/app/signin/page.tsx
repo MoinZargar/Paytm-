@@ -34,7 +34,7 @@ export default function SigninPage() {
         return;
       }
 
-      router.push('/');
+      router.push('/transfer');
     } catch (err: any) {
       setError('Internal server error');
     }
