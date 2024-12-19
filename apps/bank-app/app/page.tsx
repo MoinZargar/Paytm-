@@ -90,7 +90,8 @@ function TransactionPageContent() {
   );
 }
 
-// Main component with Suspense boundary
+
+
 export default function TransactionPage() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
