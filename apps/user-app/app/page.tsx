@@ -79,8 +79,12 @@ export default  function HomePage(){
               <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center">
                 <Link href="/signup">
                   <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 py-3 shadow-md transition duration-300 ease-in-out hover:scale-105">
-                    Create Your Wallet
+                    Credit money to your wallet
                     
+
+
+
+
                   </Button>
                 </Link>
               </div>
