@@ -73,7 +73,8 @@ export default  function HomePage(){
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Start Using PayWallet Today</h2>
                 <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Connect with billion of people who trust PayWallet for their digital payment needs. It's free to sign up!
+                  Connect with billion of people who trust Paytm for their digital payment needs. It's free to sign up!
+                
                 
                 
                 
