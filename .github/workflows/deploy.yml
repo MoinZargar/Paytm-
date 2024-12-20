@@ -45,7 +45,7 @@ jobs:
             sudo docker pull moinzargar/paytm:latest
             sudo docker stop web-app || true
             sudo docker rm web-app || true
-            sudo docker run -d \
+            sudo docker run -d --restart unless-stopped \
               --name web-app \
               --env-file /home/${{ secrets.SSH_USERNAME }}/app.env \
               -p 3000:3000 -p 3002:3002 -p 3003:3003 \
