@@ -1,81 +1,91 @@
-# Turborepo starter
+# Digital Wallet and Money Transfer WebApp
 
-This is an official starter Turborepo.
+## Overview
+This project is a full-stack web application where users can create accounts, manage their wallet balances, search for friends, and transfer funds securely. The application is divided into three main components:
+- **User App**: The primary user interface.
+- **Bank App**: Manages banking operations.
+- **Bank Webhook**: Handles webhook functionality for updating wallet balances and transaction statuses.
 
-## Using this example
+## Technologies Used
+- **Frontend**: Next.js
+- **Backend**: Next.js (User App), Express.js (Webhook)
+- **Database**: PostgreSQL with Prisma ORM
+- **Monorepo Management**: Turborepo
+- **Containerization**: Docker
 
-Run the following command:
+---
 
-```sh
-npx create-turbo@latest
-```
+## Installation Guide
 
-## What's inside?
+### Prerequisites
+Make sure Docker is installed on your system. If not, download it from [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 
-This Turborepo includes the following packages/apps:
+### Setting Up Environment Variables
+1. **User App**:
+   - Navigate to `apps/user-app/`.
+   - Rename `env.example` to `.env`.
+   - Substitute your environment variable values in the `.env` file.
 
-### Apps and Packages
+2. **Bank App**:
+   - Navigate to `apps/bank-app/`.
+   - Rename `env.example` to `.env`.
+   - Substitute your environment variable values in the `.env` file.
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+3. **Bank Webhook**:
+   - Navigate to `apps/bank-webhook/`.
+   - Rename `env.example` to `.env`.
+   - Substitute your environment variable values in the `.env` file.
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+4. **Database Setup**:
+   - Navigate to `packages/db/`.
+   - Rename `env.example` to `.env`.
+   - Paste your PostgreSQL database URL in the `.env` file. You can get your cloud PostgreSQL database URL from [Aiven](https://aiven.io/).
 
-### Utilities
+---
 
-This Turborepo has some additional tools already setup for you:
+### Building and Running the Application
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+1. Build the Docker image:
+   ```bash
+   docker build -t wallet .
+   ```
 
-### Build
+2. Run the Docker container:
+   ```bash
+   docker run -d -p 3000:3000 -p 3002:3002 -p 3003:3003 wallet
+   ```
 
-To build all apps and packages, run the following command:
+---
 
-```
-cd my-turborepo
-pnpm build
-```
+### Accessing the Application
 
-### Develop
+- Open your browser and visit:
+  ```
+  http://localhost:3002/
+  ```
 
-To develop all apps and packages, run the following command:
+---
 
-```
-cd my-turborepo
-pnpm dev
-```
+## Features
+- **Account Management**: Create accounts and manage wallet balances.
+- **Money Transfer**: Securely transfer funds between wallets.
+- **Transaction Tracking**: Monitor transaction statuses (Processing, Failed, or Success).
+- **Search Friends**: Find and connect with other users on the platform.
 
-### Remote Caching
+---
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+## Project Structure
+- **apps/user-app/**: Frontend user interface.
+- **apps/bank-app/**: Backend for banking operations.
+- **apps/bank-webhook/**: Webhook service for transaction updates.
+- **packages/db/**: Shared database setup and Prisma ORM configurations.
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+---
 
-```
-cd my-turborepo
-npx turbo login
-```
+## License
+This project is licensed under the MIT License. See the LICENSE file for details.
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+---
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+## Contributing
+Contributions are welcome! Please create a pull request for any improvements or bug fixes.
