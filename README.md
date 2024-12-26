@@ -2,9 +2,11 @@
 
 ## Overview
 This project is a full-stack web application where users can create accounts, manage their wallet balances, search for friends, and transfer funds securely. The application is divided into three main components:
-- **User App**: The primary user interface.
+- **User App**: Combines both the frontend user interface and backend logic using Next.js.
 - **Bank App**: Manages banking operations.
 - **Bank Webhook**: Handles webhook functionality for updating wallet balances and transaction statuses.
+- 
+![paytm design](https://github.com/user-attachments/assets/fcca52d6-631b-4aef-88a4-e3419ce490f7)
 
 ## Technologies Used
 - **Frontend**: Next.js
@@ -75,15 +77,10 @@ Make sure Docker is installed on your system. If not, download it from [Docker D
 ---
 
 ## Project Structure
-- **apps/user-app/**: Frontend user interface.
+- **apps/user-app/**: Combines both the frontend user interface and backend logic using Next.js.
 - **apps/bank-app/**: Backend for banking operations.
 - **apps/bank-webhook/**: Webhook service for transaction updates.
 - **packages/db/**: Shared database setup and Prisma ORM configurations.
-
----
-
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
 
 ---
 
