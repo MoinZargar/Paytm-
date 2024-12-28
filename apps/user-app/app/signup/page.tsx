@@ -25,7 +25,6 @@ export default function SignupPage() {
     setSuccess(false);
     try {
       const response = await axios.post('/api/auth/signup', data);
-      console.log(response.data);
       setSuccess(true);
     } catch (err: any) {
       setError(err?.response?.data?.error || 'Internal server error');

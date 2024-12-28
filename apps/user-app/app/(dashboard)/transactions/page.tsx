@@ -36,7 +36,7 @@ export default async function TransactionHistory () {
   if(!session) {
     return <div>Not authenticated</div>;
   }
-  if(!transactions) {
+  if(!transactions.length) {
     return <div className='w-full p-2'>No transactions found</div>;
 }
 

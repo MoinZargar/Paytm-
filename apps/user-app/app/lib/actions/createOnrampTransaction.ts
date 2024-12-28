@@ -22,6 +22,7 @@ export async function createOnRampTransaction(selectedBank: {
             }
         }
         const provider = selectedBank?.name;
+        //get the token from the bank
         const response = await axios.post(`${selectedBank?.redirectUrl}/api/token`, {
             amount,
             userId: session?.user?.id

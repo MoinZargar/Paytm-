@@ -8,7 +8,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { processPayment } from './lib/actions/processPayment';
 import { Suspense } from 'react';
 
-// Wrapper component to handle searchParams
+
 function TransactionPageContent() {
   const router = useRouter();
 

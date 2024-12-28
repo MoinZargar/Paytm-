@@ -47,7 +47,6 @@ export async function POST(request: Request) {
       data: {
         userId: user.id,
         amount: 0,
-        locked: 0
       }
     });
 
@@ -58,7 +57,7 @@ export async function POST(request: Request) {
       balance: balance.amount
     };
     
-    // Return the safe user data with a 201 (Created) status code
+    
     return NextResponse.json(userResponse, { status: 201 });
 
   } catch (error) {

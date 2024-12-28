@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcrypt";
 import { SigninType } from "@repo/validation/types";
 import { SigninSchema } from "@repo/validation/schemas";
-import { pages } from "next/dist/build/templates/app-page";
+
 
 
 export const authOptions = {

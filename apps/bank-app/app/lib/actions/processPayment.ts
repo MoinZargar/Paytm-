@@ -13,10 +13,11 @@ export async function processPayment(paymentDetails: BankTransactionType, token:
         //TODO: Implement payment processing logic
         //1. Find the user in the bank db using token
         //2. Check if payment deatils are valid
-        //2. Check if the user has sufficient balance
+        //2. Check if the user has sufficient balance to make the payment
         //3. Deduct the amount from the user's account
         //4. Update the transaction status to completed
-    
+         
+        // Hit the merchant webhook to notify the payment status
         const response = await axios.post(`${process.env.MERCHANT_WEBHOOK_URL}/api/v1/webhook`, {
             token: token,
             amount: amount,
